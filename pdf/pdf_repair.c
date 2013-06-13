@@ -335,12 +335,12 @@ pdf_repair_xref(pdf_document *xref, pdf_lexbuf *buf)
 				if (num <= 0)
 				{
 					fz_warn(ctx, "ignoring object with invalid object number (%d %d R)", num, gen);
-					continue;
+					goto have_next_token;
 				}
-				else if (num > MAX_OBJECT_NUMBER)
+				if (num > MAX_OBJECT_NUMBER)
 				{
 					fz_warn(ctx, "ignoring object with invalid object number (%d %d R)", num, gen);
-					continue;
+					goto have_next_token;
 				}
 
 				gen = fz_clampi(gen, 0, 65535);
